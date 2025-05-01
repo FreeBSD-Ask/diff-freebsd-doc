@@ -7,7 +7,8 @@ description: This chapter describes how to install and configure Xorg on FreeBSD
 tags: ["X11", "Xorg", "TrueType", "Intel", "AMD", "NVIDIA", "Anti-Aliased", "VESA", "SCFB"]
 showBookMenu: true
 weight: 7
-path: "/books/handbook/x11/"
+params:
+  path: "/books/handbook/x11/"
 ---
 
 [[x11]]
@@ -206,17 +207,6 @@ Then add the module to `/etc/rc.conf` file, executing the following command:
 ....
 # sysrc kld_list+=i915kms
 ....
-
-[TIP]
-====
-If a high CPU usage is noticed or excessive tearing with HD video, the installation of package:multimedia/libva-intel-driver[] may help.
-To install the package execute the following command:
-
-[source,shell]
-....
-# pkg install libva-intel-driver mesa-libs mesa-dri
-....
-====
 
 [[x-configuration-amd]]
 === AMD(R)
@@ -608,7 +598,7 @@ However, there are several free, high quality Type1 (PostScript(R)) fonts availa
 The URW font collection (package:x11-fonts/urwfonts[]) includes high quality versions of standard type1 fonts (Times Roman(TM), Helvetica(TM), Palatino(TM) and others).
 The Freefonts collection (package:x11-fonts/freefonts[]) includes many more fonts, but most of them are intended for use in graphics software such as the Gimp, and are not complete enough to serve as screen fonts.
 In addition, Xorg can be configured to use TrueType(R) fonts with a minimum of effort.
-For more details on this, see the man:X[7] manual page or <<truetype>>.
+For more details on this, see the man:X[7] manual page or crossref:x11[truetype, TrueType(R) Fonts].
 
 To install the above Type1 font collections from binary packages, run the following commands:
 
@@ -636,7 +626,8 @@ Alternatively, at the command line in the X session run:
 ....
 
 This will work but will be lost when the X session is closed, unless it is added to the startup file ([.filename]#~/.xinitrc# for a normal `startx` session, or [.filename]#~/.xsession# when logging in through a graphical login manager like XDM).
-A third way is to use the new [.filename]#/usr/local/etc/fonts/local.conf# as demonstrated in <<antialias>>.
+A third way is to use the new [.filename]#/usr/local/etc/fonts/local.conf# as
+demonstrated in crossref:x11[antialias, Anti-Aliased Fonts].
 
 [[truetype]]
 === TrueType(R) Fonts
@@ -670,7 +661,7 @@ Then create an index of X font files in a directory:
 ....
 
 Now add the TrueType(R) directory to the font path.
-This is just the same as described in <<type1>>:
+This is just the same as described in crossref:x11[type1, Type1 Fonts]:
 
 [source,shell]
 ....

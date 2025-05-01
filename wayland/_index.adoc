@@ -7,7 +7,8 @@ description: This chapter describes how to install and configure Wayland and com
 tags: ["Wayland", "XWayland", "KDE", "Plasma", "Xfce", "Gnome", "Intel", "AMD", "NVIDIA", "Wayfire", "Sway", "Hikari"]
 showBookMenu: true
 weight: 8
-path: "/books/handbook/wayland/"
+params:
+  path: "/books/handbook/wayland/"
 ---
 
 [[wayland]]
@@ -125,7 +126,9 @@ Begin by installing the following packages:
 
 Once the protocol and supporting packages have been installed, a compositor must create the user interface.
 Several compositors will be covered in the following sections.
-All compositors using Wayland will need a runtime directory defined in the environment, which can be achieved with the following command in the bourne shell:
+All compositors using Wayland will need a runtime directory defined in the environment.
+Since FreeBSD 14.1, this is created and defined automatically.
+For previous versions, this is achieved with the following command in the bourne shell:
 
 [source,shell]
 ----
@@ -370,6 +373,11 @@ To start Hikari, use the following command:
 
 The Sway compositor is a tiling compositor that attempts to replace the i3 windows manager.
 It should work with the user's current i3 configuration; however, new features may require some additional setup.
+
+Before starting the Sway installation, ensure that a graphics card (GPU) is installed and configured correctly.
+Refer to the section crossref:x11[x-graphic-card-drivers,drivers for your graphics hardware] for guidance.
+This step is essential for the Sway compositor to function properly.
+
 In the forthcoming examples, a fresh installation without migrating any i3 configuration will be assumed.
 To install Sway and valuable components, issue the following command as the root user:
 
@@ -397,7 +405,7 @@ set $mod Mod4
 # Your preferred terminal emulator
 set $term alacritty
 set $lock swaylock -f -c 000000
-output "My Workstation" mode 1366x786@60Hz position 1366 0
+output "My Workstation" mode 1366x768@60Hz position 1366 0
 output * bg ~/wallpapers/mywallpaper.png stretch
 ### Idle configuration
 exec swayidle -w \
@@ -453,7 +461,7 @@ If the [.filename]#/usr/local/bin/Xwayland# file does not exist, install it usin
 
 [source,shell]
 ----
-# pkg install xwayland-devel
+# pkg install xwayland
 ----
 
 [NOTE]

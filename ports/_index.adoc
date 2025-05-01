@@ -7,7 +7,8 @@ description: "FreeBSD provides two complementary technologies for installing thi
 tags: ["ports", "collection", "pkg", "poudriere", "management"]
 showBookMenu: true
 weight: 6
-path: "/books/handbook/ports/"
+params:
+  path: "/books/handbook/ports/"
 ---
 
 [[ports]]
@@ -73,7 +74,7 @@ The files that comprise a port contain all the necessary information to automati
 
 If the software has not already been adapted and tested on FreeBSD, the source code might need editing in order for it to install and run properly.
 
-However, over link:https://www.FreeBSD.org/ports/[{numports}] third-party applications have already been ported to FreeBSD.
+However, over link:https://ports.FreeBSD.org[{numports}] third-party applications have already been ported to FreeBSD.
 When feasible, these applications are made available for download as pre-compiled _packages_.
 
 Packages can be manipulated with the FreeBSD package management commands.
@@ -96,7 +97,9 @@ Select the technology that meets your requirements for installing a particular a
 * Packages are normally compiled with conservative options because they have to run on the maximum number of systems. By compiling from the port, one can change the compilation options.
 * Some applications have compile-time options relating to which features are installed. For example, NGINX(R) can be configured with a wide variety of different built-in options.
 +
-In some cases, multiple packages will exist for the same application to specify certain settings. For example, NGINX(R) is available as a `nginx` package and a `nginx-lite` package, depending on whether or not Xorg is installed. Creating multiple packages rapidly becomes impossible if an application has more than one or two different compile-time options.
+In some cases, multiple packages will exist for the same application with different settings. For example, NGINX(R) is available as a `nginx` package and a `nginx-lite` package, the former has many more options enabled, but this in turn requires many things to be installed as dependencies for it to work, thus increasing space consumption and attack surface.
++
+The transitive dependencies can grow quite large, for example the full `nginx` package will pull in several X libraries which can be quite surprising, so building from ports allow you to choose only the options you need without a "kitchen sink" approach.In some cases, multiple packages will exist for the same application to specify certain settings.
 * The licensing conditions of some software forbid binary distribution. Such software must be distributed as source code which must be compiled by the end-user.
 * Some people do not trust binary distributions or prefer to read through source code in order to look for potential problems.
 * Source code is needed in order to apply custom patches.
@@ -118,9 +121,9 @@ The remainder of this chapter explains how to use packages and ports to install 
 FreeBSD's list of available applications is growing all the time.
 There are a number of ways to find software to install:
 
-* The FreeBSD web site maintains an up-to-date searchable list of all the available applications, at link:https://www.FreeBSD.org/ports/[Ports Portal]. The ports can be searched by application name or by software category.
+* The FreeBSD web site maintains an up-to-date searchable list of all the available applications, at link:https://ports.FreeBSD.org[Ports Portal]. The ports can be searched by application name or by software category.
 * Dan Langille maintains https://www.freshports.org/[FreshPorts] which provides a comprehensive search utility and also tracks changes to the applications in the Ports Collection. Registered users can create a customized watch list in order to receive an automated email when their watched ports are updated.
-* If finding a particular application becomes challenging, try searching a site like https://sourceforge.net/[SourceForge] or https://github.com/[GitHub] then check back at the link:https://www.FreeBSD.org/ports/[Ports Portal] to see if the application has been ported.
+* If finding a particular application becomes challenging, try searching a site like https://sourceforge.net/[SourceForge] or https://github.com/[GitHub] then check back at the link:https://ports.FreeBSD.org[Ports Portal] to see if the application has been ported.
 * Search the binary package repository for an application using the man:pkg[8] command
 
 [[pkgng-intro]]
@@ -130,7 +133,8 @@ man:pkg[8] provides an interface for manipulating	packages: registering, adding,
 
 For sites wishing to only use prebuilt binary packages from the FreeBSD mirrors, managing packages with man:pkg[8] can be sufficient.
 
-However, for those sites building from source a separate <<ports-upgrading-tools, port management tool>> will be needed.
+However, for those sites building from source a separate
+crossref:ports[ports-upgrading-tools, port management tool] will be needed.
 
 Since man:pkg[8] only works with binary packages, it is not a replacement for such tools.
 Those tools can be used to install software from both binary packages and the Ports Collection, while man:pkg[8] installs only binary packages.
@@ -669,7 +673,7 @@ The extract portion of building a port will automatically save the downloaded so
 === Installing the Ports Collection
 
 Before an application can be compiled using a port, the Ports Collection must first be installed.
-If it was not installed during the installation of FreeBSD, use one of the following methods to install it:
+If it was not installed during the installation of FreeBSD, use the following method to install it:
 
 [[ports-using-git-method]]
 [.procedure]
@@ -906,7 +910,7 @@ Over time, newer versions of software become available in the Ports Collection.
 This section describes how to determine which software can be upgraded and how to perform the upgrade.
 
 To determine if newer versions of installed ports are available, ensure that the latest version of the ports tree is installed,
-using the updating command described in <<ports-using-git-method, "Git Method">>.
+using the updating command described in crossref:ports[ports-using-git-method, "Git Method"].
 The following command will list the installed ports which are out of date:
 
 [source,shell]
@@ -1019,6 +1023,12 @@ More information about package:ports-mgmt/portmaster[] may be found in its `pkg-
 
 [[portupgrade]]
 ==== Upgrading Ports Using Portupgrade
+
+[WARNING]
+====
+Portupgrade is deprecated and will be removed in the near future.
+====
+
 
 package:ports-mgmt/portupgrade[] is another utility that can be used to upgrade ports.
 It installs a suite of applications which can be used to manage ports.
@@ -1306,4 +1316,4 @@ Instead, any fixes and support come from the general community who subscribe to 
 +
 If there is no response to the email, use Bugzilla to submit a bug report using the instructions in extref:{problem-reports}[Writing FreeBSD Problem Reports].
 . Fix it! The extref:{porters-handbook}[Porter's Handbook] includes detailed information on the ports infrastructure so that you can fix the occasional broken port or even submit your own!
-. Install the package instead of the port using the instructions in <<pkgng-intro>>.
+. Install the package instead of the port using the instructions in crossref:ports[pkgng-intro, Using pkg for Binary Package Management].
