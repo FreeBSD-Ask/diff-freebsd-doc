@@ -7,7 +7,8 @@ description: This chapter covers some of the more frequently used network servic
 tags: ["network", "servers", "inetd", "NFS", "NIS", "LDAP", "DHCP", "DNS", "Apache HTTP", "FTP", "Samba", "NTP", "iSCSI"]
 showBookMenu: true
 weight: 37
-path: "/books/handbook/network-servers/"
+params:
+  path: "/books/handbook/network-servers/"
 ---
 
 [[network-servers]]
@@ -895,7 +896,7 @@ nis_client_enable="YES"
 +
 This line configures the client to provide anyone with a valid account in the NIS server's password maps an account on the client.
 There are many ways to configure the NIS client by modifying this line.
-One method is described in <<network-netgroups>>.
+One method is described in crossref:network-servers[network-netgroups, Using Netgroups].
 For more detailed reading, refer to the book `Managing NFS and NIS`, published by O'Reilly Media.
 . To import all possible group entries from the NIS server, add this line to [.filename]#/etc/group#:
 +
@@ -2534,12 +2535,10 @@ The most important settings in [.filename]#/usr/local/etc/smb4.conf# are the sec
 These directives control the options:
 
 `security`::
-The most common settings are `security = share` and `security = user`.
 If the clients use usernames that are the same as their usernames on the FreeBSD machine, user level security should be used.
-This is the default security policy and it requires clients to first log on before they can access shared resources.
+`security = user` is the default security policy and it requires clients to first log on before they can access shared resources.
 +
-In share level security, clients do not need to log onto the server with a valid username and password before attempting to connect to a shared resource.
-This was the default security model for older versions of Samba.
+Refer to man:smb.conf[5] to learn about other supported settings for the `security` option.
 
 `passdb backend`::
 Samba has several different backend authentication models.

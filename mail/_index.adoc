@@ -7,7 +7,8 @@ description: This chapter provides a basic introduction to running a mail server
 tags: ["mail", "sendmail", "dma", "MTA", "SMTP", "mail user agents", "fetchmail", "procmail", "alpine", "mutt", "postfix"]
 showBookMenu: true
 weight: 36
-path: "/books/handbook/mail/"
+params:
+  path: "/books/handbook/mail/"
 ---
 
 [[mail]]
@@ -80,7 +81,8 @@ The Mail User Agent (MUA) is an application which is used to compose, send, and 
 This application can be a command line program, such as the built-in `mail` utility or a third-party application from the Ports Collection, such as alpine, elm, or mutt.
 Dozens of graphical programs are also available in the Ports Collection, including Claws Mail, Evolution, and Thunderbird.
 Some organizations provide a web mail program which can be accessed through a web browser.
-More information about installing and using a MUA on FreeBSD can be found in <<mail-agents>>.
+More information about installing and using a MUA on FreeBSD can be found in
+crossref:mail[mail-agents, Mail User Agents].
 
 Mail Transfer Agent (MTA)::
 The Mail Transfer Agent (MTA) is responsible for receiving incoming mail and delivering outgoing mail.
@@ -136,6 +138,14 @@ Authentication can be set with one line in [.filename]#/etc/dma/auth.conf#:
 ....
 username@gmail.com|smtp.gmail.com:password
 ....
+
+[NOTE]
+====
+If you have 2-factor authentication enabled, you will need to generate an
+application-specific password as your normal login password will be
+rejected. See Google documentation for more information on
+https://myaccount.google.com/apppasswords[app-specific passwords].
+====
 
 Execute the following command to test the configuration:
 
@@ -383,7 +393,7 @@ To install it execute the following command:
 # pkg install dma
 ....
 
-Perform the configuration as indicated in <<configuring-dragonfly-mail-agent>>.
+Perform the configuration as indicated in crossref:mail[configuring-dragonfly-mail-agent, Configuring DragonFly Mail Agent (DMA)].
 
 Then change all the entries in the file [.filename]#/etc/mail/mailer.conf# to man:dma[8]:
 
@@ -843,7 +853,8 @@ Programs such as Sendmail and Postfix are overkill for this use.
 
 Additionally, a typical Internet access service agreement may forbid one from running a "mail server".
 
-The easiest way to fulfill those needs is to use the man:dma[8] MTA included in the <<configuring-dragonfly-mail-agent, base system>>.
+The easiest way to fulfill those needs is to use the man:dma[8] MTA included in
+the crossref:mail[configuring-dragonfly-mail-agent, base system].
 For systems up to 13.2, need be to installed from ports.
 
 In addition to man:dma[8], third-party software can be used to achieve the same, like package:mail/ssmtp[].
@@ -869,7 +880,6 @@ Enter the ISP's outgoing mail relay in place of `mail.example.com`.
 Some ISPs call this the "outgoing mail server" or "SMTP server".
 
 Make sure to disable Sendmail, including the outgoing mail service.
-See <<mail-disable-sendmail>> for details.
 
 package:mail/ssmtp[] has some other options available. Refer to the examples in [.filename]#/usr/local/etc/ssmtp# or the manual page of ssmtp for more information.
 

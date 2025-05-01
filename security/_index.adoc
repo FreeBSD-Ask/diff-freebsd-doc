@@ -7,7 +7,8 @@ description: Hundreds of standard practices have been authored about how to secu
 tags: ["security", "TCP Wrappers", "Kerberos", "OpenSSL", "OpenSSH", "ACL", "NFSv4 ACLs", "advisories", "sudo", "doas", "capsicum", "monitoring"]
 showBookMenu: true
 weight: 20
-path: "/books/handbook/security/"
+params:
+  path: "/books/handbook/security/"
 ---
 
 [[security]]
@@ -180,7 +181,7 @@ The following command can be run to check which hash mechanism is currently bein
 
 [source,shell]
 ....
-# grep user /etc/master.passwd
+% grep passwd_format /etc/login.conf
 ....
 
 The output should be similar to the following:
@@ -684,7 +685,7 @@ It then describes how to configure a SSH server on a FreeBSD system.
 [TIP]
 ====
 As stated, this chapter will cover the base system version of OpenSSH.
-A version of OpenSSH is also available in the package:security/openssh-portable[], which provides additional configuration options and is updated more regularly.
+A version of OpenSSH is also available in the package:security/openssh-portable[], which provides additional configuration options and is updated with new features more regularly.
 ====
 
 === Using the SSH Client Utilities
@@ -870,7 +871,7 @@ PubkeyAuthentication yes
 ....
 
 Once the configuration is done, the users will have to send the system administrator their *public key* and these keys will be added in [.filename]#.ssh/authorized_keys#.
-The process for generating the keys is described in <<Key-based Authentication>>.
+The process for generating the keys is described in crossref:security[security-ssh-keygen, Key-based Authentication].
 
 Then restart the server executing the following command:
 
@@ -879,7 +880,8 @@ Then restart the server executing the following command:
 # service sshd reload
 ....
 
-It is strongly recommended to follow the security improvements indicated in <<security-sshd-security-options>>.
+It is strongly recommended to follow the security improvements indicated in
+crossref:security[security-sshd-security-options, SSH Server Security Options].
 
 [[security-sshd-security-options]]
 === SSH Server Security Options
